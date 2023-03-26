@@ -2,7 +2,7 @@ name: Container Image
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 'sfos-*' ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ master ]
