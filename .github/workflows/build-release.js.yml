@@ -51,6 +51,12 @@ jobs:
       run: yarn build
     - name: Bundle builded data
       run: zip release-${{github.head_ref || github.ref_name}}.zip -r ./target/*
+    - name: Update release
+      if: ${{ github.event_name != 'pull_request'}}
+      run: |
+        gh release upload ${{ github.ref_name }} release-${{github.head_ref || github.ref_name}}.zip --clobber 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Release
       id: create_release
       uses: marvinpinto/action-automatic-releases@latest
